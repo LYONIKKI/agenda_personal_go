@@ -1,0 +1,49 @@
+<!-- SIDEBAR EXCLUSIVO AGENDA FIBER - ROJO VINO BRILLANTE -->
+<aside id="sidebar-main" class="w-64 sidebar-responsive sidebar-bg-vino text-white flex flex-col min-h-screen border-r border-red-950/70 select-none flex-shrink-0">
+    
+    <div class="p-4 bg-black/40 flex items-center justify-between border-b border-red-900/40 backdrop-blur-sm">
+        <div class="flex items-center min-w-0">
+            <div class="badge-vino-brillante p-2.5 rounded-xl mr-3 flex-shrink-0 flex items-center justify-center">
+                <i class="fa-solid fa-list-check text-base text-white font-black"></i>
+            </div>
+            <div class="min-w-0">
+                <h2 class="text-white font-black text-xs tracking-wider leading-tight truncate">AGENDA FIBER</h2>
+                <p class="text-[9px] text-red-300 font-extrabold tracking-widest uppercase mt-0.5">Asistente Personal</p>
+            </div>
+        </div>
+        <button type="button" id="btn-cerrar-sidebar-movil" class="md:hidden text-red-300 hover:text-white p-1 text-base">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+    </div>
+
+    <!-- Navegación de los 3 Módulos Exclusivos -->
+    <nav id="sidebar-nav" class="flex-1 p-3 space-y-1.5 overflow-y-auto font-mono text-xs">
+        <a href="/" data-path="/" class="sidebar-item flex items-center px-3 py-2.5 rounded-lg text-xs transition duration-150 item-hover-vino">
+            <span class="w-6 text-center flex-shrink-0"><i class="fa-solid fa-table-columns text-red-300"></i></span>
+            <span class="truncate">Tablero Kanban</span>
+        </a>
+        <a href="/agenda" data-path="/agenda" class="sidebar-item flex items-center px-3 py-2.5 rounded-lg text-xs transition duration-150 item-hover-vino">
+            <span class="w-6 text-center flex-shrink-0"><i class="fa-solid fa-clock text-red-300"></i></span>
+            <span class="truncate">Agenda / Cronograma</span>
+        </a>
+        <a href="/semanal" data-path="/semanal" class="sidebar-item flex items-center px-3 py-2.5 rounded-lg text-xs transition duration-150 item-hover-vino">
+            <span class="w-6 text-center flex-shrink-0"><i class="fa-solid fa-calendar-week text-red-400"></i></span>
+            <span class="truncate">Seguimiento Semanal</span>
+        </a>
+    </nav>
+
+    <div class="p-3 bg-black/60 border-t border-red-900/40 flex items-center justify-between backdrop-blur-sm">
+        <div class="flex items-center min-w-0 flex-1 mr-2">
+            <div class="badge-vino-brillante w-8 h-8 rounded-full flex items-center justify-center text-[11px] font-black text-white uppercase flex-shrink-0 mr-2.5">
+                AV
+            </div>
+            <div class="min-w-0 flex-1">
+                <p class="text-xs font-bold text-white truncate leading-none mb-1">Ing. Anhgelo Vega</p>
+                <p class="text-[9px] text-red-300 truncate font-black uppercase tracking-wider">Desarrollador</p>
+            </div>
+        </div>
+        <a href="/logout" class="text-red-300 hover:text-white p-1.5 transition flex-shrink-0" title="Cerrar Sesión">
+            <i class="fa-solid fa-power-off text-sm"></i>
+        </a>
+    </div>
+</aside>

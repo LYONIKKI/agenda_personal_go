@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Agenda & Asistente | Acceso</title>
+    
+    <!-- CSS Estáticos y Locales -->
+    <link rel="stylesheet" href="/public/css/tailwind.min.css">
+    <link rel="stylesheet" href="/public/css/all.min.css">
+    <link rel="stylesheet" href="/public/css/login.css">
+</head>
+<body class="login-bg min-h-screen flex items-center justify-center p-4 text-white">
+
+    <div class="w-full max-w-sm sm:max-w-md mx-auto">
+        <div class="glass-panel rounded-3xl p-8 sm:p-10 text-center">
+            
+            <div class="mb-8">
+                <h1 class="text-3xl font-extrabold tracking-tight text-white mb-1">Login</h1>
+                <p class="text-xs uppercase tracking-widest text-purple-200 font-semibold opacity-80">Agenda & Asistente Personal</p>
+            </div>
+
+            <form id="formLogin" class="space-y-5 text-left">
+                <div>
+                    <div class="relative flex items-center">
+                        <input type="text" id="usuario" required autocomplete="off" autofocus
+                               class="glass-input w-full rounded-full pl-5 pr-11 py-3 text-sm text-white placeholder-purple-200/60 outline-none"
+                               placeholder="Username">
+                        <span class="absolute right-4 text-purple-200/80 text-sm pointer-events-none">
+                            <i class="fa-solid fa-user"></i>
+                        </span>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="relative flex items-center">
+                        <input type="password" id="password" required
+                               class="glass-input w-full rounded-full pl-5 pr-11 py-3 text-sm text-white placeholder-purple-200/60 outline-none"
+                               placeholder="Password">
+                        <button type="button" id="btnTogglePass" tabindex="-1"
+                                class="absolute right-4 text-purple-200/80 hover:text-white transition focus:outline-none cursor-pointer">
+                            <i class="fa-solid fa-lock" id="iconPass"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <button type="submit" id="btnSubmit"
+                        class="glass-btn w-full font-bold py-3 rounded-full text-sm tracking-wide shadow-lg cursor-pointer mt-6 flex items-center justify-center space-x-2">
+                    <span>Login</span>
+                </button>
+            </form>
+
+            <div class="mt-8 pt-4 border-t border-white/10 text-[11px] text-purple-200/70">
+                <p class="m-0 font-medium">Ing. Anhgelo Smith Vega Poma</p>
+                <p class="m-0 text-[10px] text-purple-300/50 mt-0.5">Pasco, 2026</p>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Scripts desacoplados -->
+    <script src="/public/js/sweetalert2.all.min.js"></script>
+    <script src="/public/js/login.js"></script>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Agenda & Asistente | Seguimiento Semanal</title>
+    <link rel="stylesheet" href="/public/css/tailwind.min.css">
+    <link rel="stylesheet" href="/public/css/all.min.css">
+    <link rel="stylesheet" href="/public/css/tablero.css">
+</head>
+<body class="bg-gray-100 font-sans antialiased text-gray-800">
+
+    <div id="sidebar-backdrop" class="sidebar-backdrop"></div>
+
+    <div class="flex h-screen overflow-hidden">
+        <div id="sidebar-container"></div>
+
+        <div class="flex-1 flex flex-col overflow-y-auto">
+            <header class="bg-white shadow-sm h-16 flex items-center justify-between px-4 sm:px-8 border-b border-gray-200">
+                <div class="flex items-center space-x-3">
+                    <button id="btn-abrir-sidebar-movil" class="md:hidden p-2 rounded-lg text-gray-700 hover:bg-gray-100">
+                        <i class="fa-solid fa-bars text-lg"></i>
+                    </button>
+                    <span class="p-2 rounded-lg bg-red-50 text-red-700"><i class="fa-solid fa-calendar-check text-lg"></i></span>
+                    <h1 class="text-sm sm:text-base font-bold text-gray-800">Seguimiento Semanal de Sprint</h1>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <button id="btn-semana-ant" class="p-2 rounded-lg border border-gray-200 hover:bg-gray-50 text-xs text-gray-600"><i class="fa-solid fa-chevron-left"></i></button>
+                    <span id="label-rango-semana" class="font-mono text-xs font-bold text-gray-700 px-2">Cargando...</span>
+                    <button id="btn-semana-sig" class="p-2 rounded-lg border border-gray-200 hover:bg-gray-50 text-xs text-gray-600"><i class="fa-solid fa-chevron-right"></i></button>
+                </div>
+            </header>
+
+            <main class="p-4 sm:p-6 space-y-4 max-w-7xl mx-auto w-full flex-1">
+                <div id="contenedor-dias-semana" class="grid grid-cols-1 md:grid-cols-7 gap-3">
+                    <!-- Columnas de Lunes a Domingo generadas por JS -->
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script src="/public/js/sweetalert2.all.min.js"></script>
+    <script src="/public/js/semanal.js"></script>
+</body>
+</html>

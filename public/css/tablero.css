@@ -1,0 +1,154 @@
+/* =========================================================
+   PALETA ROJO VINO BRILLANTE / RUBÍ METÁLICO
+   ========================================================= */
+
+.sidebar-bg-vino { 
+    background: linear-gradient(180deg, #2b0408 0%, #170204 50%, #0a0102 100%) !important; 
+}
+
+.badge-vino-brillante {
+    background: linear-gradient(135deg, #7f1d1d 0%, #dc2626 40%, #fca5a5 55%, #b91c1c 70%, #450a0a 100%) !important;
+    border: 1px solid rgba(254, 202, 202, 0.8) !important;
+    box-shadow: 0 0 14px rgba(220, 38, 38, 0.5) !important;
+}
+
+.item-active-vino {
+    background: linear-gradient(90deg, rgba(220, 38, 38, 0.35) 0%, rgba(153, 27, 27, 0.15) 100%) !important;
+    border-left: 4px solid #ef4444 !important;
+    color: #ffffff !important;
+    font-weight: 700 !important;
+    box-shadow: inset 0 0 10px rgba(239, 68, 68, 0.25) !important;
+}
+
+.item-hover-vino:hover {
+    background-color: rgba(220, 38, 38, 0.2) !important;
+    color: #ffffff !important;
+}
+
+.btn-vino {
+    background: linear-gradient(135deg, #7f1d1d 0%, #b91c1c 45%, #ef4444 80%, #991b1b 100%) !important;
+    color: #ffffff !important;
+    font-weight: 700;
+    border: 1px solid rgba(254, 202, 202, 0.4) !important;
+    box-shadow: 0 4px 14px rgba(185, 28, 28, 0.4) !important;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+.btn-vino:hover:not(:disabled) {
+    filter: brightness(1.15);
+    box-shadow: 0 6px 18px rgba(239, 68, 68, 0.55) !important;
+    transform: translateY(-1px);
+}
+
+.btn-vino:active:not(:disabled) {
+    transform: translateY(1px);
+}
+
+.modal-header-vino {
+    background: linear-gradient(135deg, #38070d 0%, #600a14 40%, #881320 80%, #4c0510 100%) !important;
+    border-bottom: 2px solid #b91c1c !important;
+    box-shadow: 0 2px 10px rgba(136, 19, 32, 0.35);
+}
+
+.input-vino-focus:focus {
+    border-color: #dc2626 !important;
+    box-shadow: 0 0 0 2px rgba(220, 38, 38, 0.25) !important;
+}
+
+/* =========================================================
+   SOPORTE RESPONSIVE (MÓVIL / ESCRITORIO)
+   ========================================================= */
+
+@media (max-width: 768px) {
+    .sidebar-responsive {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100vh;
+        z-index: 1040;
+        transform: translateX(-100%);
+        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .sidebar-responsive.sidebar-abierto {
+        transform: translateX(0);
+        box-shadow: 10px 0 30px rgba(0, 0, 0, 0.7);
+    }
+
+    .sidebar-backdrop {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.65);
+        z-index: 1030;
+        display: none;
+    }
+
+    .sidebar-backdrop.active {
+        display: block;
+    }
+
+    .tablero-scroll-movil {
+        display: flex;
+        overflow-x: auto;
+        gap: 1rem;
+        padding-bottom: 1.5rem;
+        -webkit-overflow-scrolling: touch;
+        scroll-snap-type: x mandatory;
+    }
+
+    .columna-kanban {
+        min-width: 85vw !important;
+        scroll-snap-align: start;
+    }
+}
+
+@media (min-width: 769px) {
+    .columna-kanban {
+        min-width: 260px;
+    }
+}
+
+.columna-kanban {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 1rem;
+}
+
+.tarjeta-tarea {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 0.75rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    transition: all 0.2s ease;
+}
+
+.tarjeta-tarea:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 14px -2px rgba(136, 19, 32, 0.15);
+    border-color: #ef4444;
+}
+
+/* Modales */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.75);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 1050;
+    backdrop-filter: blur(4px);
+    padding: 1rem;
+}
+
+.modal-overlay.active {
+    display: flex !important;
+}
+
+.swal2-container {
+    z-index: 20000 !important;
+}

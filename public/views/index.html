@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Agenda & Asistente | Tablero Kanban</title>
+    <link rel="stylesheet" href="/public/css/tailwind.min.css">
+    <link rel="stylesheet" href="/public/css/all.min.css">
+    <link rel="stylesheet" href="/public/css/tablero.css">
+</head>
+<body class="bg-gray-100 font-sans antialiased text-gray-800">
+
+    <div id="sidebar-backdrop" class="sidebar-backdrop"></div>
+
+    <div class="flex h-screen overflow-hidden">
+        
+        <!-- CONTENEDOR MODULAR DEL SIDEBAR EXCLUSIVO -->
+        <div id="sidebar-container"></div>
+
+        <!-- CONTENIDO PRINCIPAL -->
+        <div class="flex-1 flex flex-col overflow-y-auto">
+            
+            <header class="bg-white shadow-sm h-16 flex items-center justify-between px-4 sm:px-8 border-b border-gray-200">
+                <div class="flex items-center space-x-3">
+                    <button id="btn-abrir-sidebar-movil" class="md:hidden p-2 rounded-lg text-gray-700 hover:bg-gray-100 focus:outline-none">
+                        <i class="fa-solid fa-bars text-lg"></i>
+                    </button>
+                    <span class="hidden sm:inline-flex p-2 rounded-lg bg-red-50 text-red-700">
+                        <i class="fa-solid fa-layer-group text-lg"></i>
+                    </span>
+                    <h1 class="text-sm sm:text-base font-bold text-gray-800 truncate">Mi Agenda & Sprint</h1>
+                </div>
+                <div>
+                    <button id="btn-abrir-crear" class="btn-vino px-3 sm:px-4 py-2 rounded-xl text-xs font-bold flex items-center space-x-1.5 shadow">
+                        <i class="fa-solid fa-plus-circle"></i>
+                        <span>Nueva Tarea</span>
+                    </button>
+                </div>
+            </header>
+
+            <main class="p-4 sm:p-6 space-y-4 sm:space-y-6 flex-1 flex flex-col">
+                
+                <div class="flex items-center justify-between gap-3 bg-white p-3 sm:p-4 rounded-xl border border-gray-200">
+                    <div class="relative flex-1">
+                        <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-400">
+                            <i class="fa-solid fa-magnifying-glass text-xs"></i>
+                        </span>
+                        <input type="text" id="input-buscar" placeholder="Filtrar por tarea, módulo o tecnología..." 
+                               class="w-full pl-9 pr-3 py-2 border border-gray-200 rounded-lg text-xs focus:outline-none focus:border-red-600">
+                    </div>
+                    <button id="btn-recargar" class="px-3 py-2 border border-gray-200 hover:bg-gray-50 text-gray-600 rounded-lg text-xs font-semibold flex items-center transition">
+                        <i class="fa-solid fa-arrows-rotate sm:mr-1.5"></i>
+                        <span class="hidden sm:inline">Actualizar</span>
+                    </button>
+                </div>
+
+                <!-- TABLERO KANBAN DE 4 COLUMNAS -->
+                <div class="tablero-scroll-movil md:grid md:grid-cols-4 gap-4 flex-1 items-start">
+                    
+                    <!-- 1. BACKLOG -->
+                    <div class="columna-kanban p-4 flex flex-col max-h-[calc(100vh-220px)]">
+                        <div class="flex items-center justify-between mb-3 border-b border-gray-200 pb-2">
+                            <h3 class="text-xs font-bold uppercase tracking-wider text-gray-500 flex items-center">
+                                <span class="w-2.5 h-2.5 rounded-full bg-gray-400 mr-2"></span> Backlog
+                            </h3>
+                            <span id="badge-count-backlog" class="text-xs font-bold font-mono px-2 py-0.5 rounded-full bg-gray-200 text-gray-700">0</span>
+                        </div>
+                        <div id="col-backlog" class="space-y-3 overflow-y-auto pr-1 flex-1"></div>
+                    </div>
+
+                    <!-- 2. HOY / PENDIENTE -->
+                    <div class="columna-kanban p-4 flex flex-col max-h-[calc(100vh-220px)] border-red-200 bg-red-50/20">
+                        <div class="flex items-center justify-between mb-3 border-b border-red-200 pb-2">
+                            <h3 class="text-xs font-bold uppercase tracking-wider text-red-700 flex items-center">
+                                <span class="w-2.5 h-2.5 rounded-full bg-red-600 mr-2"></span> Hoy / Pendiente
+                            </h3>
+                            <span id="badge-count-pendiente" class="text-xs font-bold font-mono px-2 py-0.5 rounded-full bg-red-100 text-red-800">0</span>
+                        </div>
+                        <div id="col-pendiente" class="space-y-3 overflow-y-auto pr-1 flex-1"></div>
+                    </div>
+
+                    <!-- 3. EN PROGRESO -->
+                    <div class="columna-kanban p-4 flex flex-col max-h-[calc(100vh-220px)] border-blue-200 bg-blue-50/20">
+                        <div class="flex items-center justify-between mb-3 border-b border-blue-200 pb-2">
+                            <h3 class="text-xs font-bold uppercase tracking-wider text-blue-700 flex items-center">
+                                <span class="w-2.5 h-2.5 rounded-full bg-blue-500 mr-2"></span> En Progreso
+                            </h3>
+                            <span id="badge-count-en_progreso" class="text-xs font-bold font-mono px-2 py-0.5 rounded-full bg-blue-100 text-blue-800">0</span>
+                        </div>
+                        <div id="col-en_progreso" class="space-y-3 overflow-y-auto pr-1 flex-1"></div>
+                    </div>
+
+                    <!-- 4. COMPLETADO -->
+                    <div class="columna-kanban p-4 flex flex-col max-h-[calc(100vh-220px)] border-emerald-200 bg-emerald-50/20">
+                        <div class="flex items-center justify-between mb-3 border-b border-emerald-200 pb-2">
+                            <h3 class="text-xs font-bold uppercase tracking-wider text-emerald-700 flex items-center">
+                                <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 mr-2"></span> Completado
+                            </h3>
+                            <span id="badge-count-completado" class="text-xs font-bold font-mono px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800">0</span>
+                        </div>
+                        <div id="col-completado" class="space-y-3 overflow-y-auto pr-1 flex-1"></div>
+                    </div>
+
+                </div>
+
+            </main>
+        </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- MODAL 1: REGISTRAR TAREA NUEVA (EXCLUSIVO) -->
+    <!-- ========================================== -->
+    <div id="modal-crear-tarea" class="modal-overlay hidden">
+        <div class="bg-white rounded-2xl shadow-2xl max-w-lg w-full overflow-hidden border border-red-950/20">
+            <div class="modal-header-vino p-4 flex justify-between items-center text-white">
+                <h3 class="text-sm font-black tracking-wide flex items-center text-white">
+                    <span class="w-6 h-6 rounded-lg bg-red-500/20 border border-red-300/30 flex items-center justify-center mr-2 text-red-200">
+                        <i class="fa-solid fa-plus text-xs"></i>
+                    </span>
+                    Registrar Nueva Tarea
+                </h3>
+                <button type="button" id="btn-cerrar-modal-crear" class="text-red-200 hover:text-white p-1 rounded-lg hover:bg-white/10 transition">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+            <form id="form-crear-tarea" class="p-5 sm:p-6 space-y-4 text-xs bg-white">
+                <div>
+                    <label class="block font-bold text-gray-700 uppercase mb-1">Título de la Tarea:</label>
+                    <input type="text" id="crear-titulo" required placeholder="Ej: Actualizar editor de insumos de laboratorio en Rust" 
+                           class="input-vino-focus w-full px-3 py-2 border border-gray-300 rounded-lg text-gray-800 text-xs outline-none">
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                        <label class="block font-bold text-gray-700 uppercase mb-1">Módulo / Contexto:</label>
+                        <input type="text" id="crear-modulo" placeholder="Ej: Laboratorio, Emergencia" value="Laboratorio"
+                               class="input-vino-focus w-full px-3 py-2 border border-gray-300 rounded-lg text-gray-800 text-xs outline-none">
+                    </div>
+                    <div>
+                        <label class="block font-bold text-gray-700 uppercase mb-1">Tecnología:</label>
+                        <input type="text" id="crear-tecnologia" placeholder="Ej: Rust, Go, SQL" value="Rust"
+                               class="input-vino-focus w-full px-3 py-2 border border-gray-300 rounded-lg text-gray-800 text-xs outline-none">
+                    </div>
+                </div>
+                
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+                    <div>
+                        <label class="block font-bold text-gray-700 uppercase mb-1 truncate">Prioridad:</label>
+                        <select id="crear-prioridad" class="input-vino-focus w-full px-2 py-2 border border-gray-300 rounded-lg text-gray-800 text-xs outline-none bg-white">
+                            <option value="baja">Baja</option>
+                            <option value="media" selected>Media</option>
+                            <option value="alta">Alta</option>
+                            <option value="urgente">Urgente</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block font-bold text-gray-700 uppercase mb-1 truncate">Estado Inicial:</label>
+                        <select id="crear-estado" class="input-vino-focus w-full px-2 py-2 border border-gray-300 rounded-lg text-gray-800 text-xs outline-none bg-white">
+                            <option value="backlog">Backlog</option>
+                            <option value="pendiente" selected>Hoy / Pendiente</option>
+                            <option value="en_progreso">En Progreso</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block font-bold text-gray-700 uppercase mb-1 truncate">Fecha Inicio:</label>
+                        <input type="date" id="crear-fecha" class="input-vino-focus w-full px-2 py-2 border border-gray-300 rounded-lg text-gray-800 text-xs outline-none bg-white">
+                    </div>
+                    <div>
+                        <label class="block font-bold text-red-700 uppercase mb-1 truncate">Fecha Límite:</label>
+                        <input type="date" id="crear-fecha-limite" class="input-vino-focus w-full px-2 py-2 border border-gray-300 rounded-lg text-gray-800 text-xs outline-none bg-white">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block font-bold text-gray-700 uppercase mb-1">Descripción / Notas:</label>
+                    <textarea id="crear-descripcion" rows="3" placeholder="Detalles de la tarea..."
+                              class="input-vino-focus w-full px-3 py-2 border border-gray-300 rounded-lg text-gray-800 text-xs outline-none"></textarea>
+                </div>
+                <div class="flex justify-end space-x-2 pt-3 border-t border-gray-200">
+                    <button type="button" id="btn-cancelar-modal-crear" class="px-4 py-2 border border-gray-300 rounded-lg text-gray-600 hover:bg-gray-100 font-semibold transition">Cancelar</button>
+                    <button type="submit" class="btn-vino px-5 py-2 rounded-lg font-bold flex items-center space-x-1.5">
+                        <i class="fa-solid fa-floppy-disk text-xs"></i>
+                        <span>Guardar Tarea</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- MODAL 2: EDITAR / APLAZAR TAREA (EXCLUSIVO) -->
+    <!-- ========================================== -->
+    <div id="modal-editar-tarea" class="modal-overlay hidden">
+        <div class="bg-white rounded-2xl shadow-2xl max-w-lg w-full overflow-hidden border border-red-950/20">
+            <div class="modal-header-vino p-4 flex justify-between items-center text-white">
+                <h3 class="text-sm font-black tracking-wide flex items-center text-white">
+                    <span class="w-6 h-6 rounded-lg bg-red-500/20 border border-red-300/30 flex items-center justify-center mr-2 text-red-200">
+                        <i class="fa-solid fa-pen-to-square text-xs"></i>
+                    </span>
+                    <span id="txt-titulo-modal-editar">Editar Tarea</span>
+                </h3>
+                <button type="button" id="btn-cerrar-modal-editar" class="text-red-200 hover:text-white p-1 rounded-lg hover:bg-white/10 transition">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+            <form id="form-editar-tarea" class="p-5 sm:p-6 space-y-4 text-xs bg-white">
+                <input type="hidden" id="edit-id" value="">
+                <div>
+                    <label class="block font-bold text-gray-700 uppercase mb-1">Título de la Tarea:</label>
+                    <input type="text" id="edit-titulo" required 
+                           class="input-vino-focus w-full px-3 py-2 border border-gray-300 rounded-lg text-gray-800 text-xs outline-none">
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                        <label class="block font-bold text-gray-700 uppercase mb-1">Módulo / Contexto:</label>
+                        <input type="text" id="edit-modulo" 
+                               class="input-vino-focus w-full px-3 py-2 border border-gray-300 rounded-lg text-gray-800 text-xs outline-none">
+                    </div>
+                    <div>
+                        <label class="block font-bold text-gray-700 uppercase mb-1">Tecnología:</label>
+                        <input type="text" id="edit-tecnologia" 
+                               class="input-vino-focus w-full px-3 py-2 border border-gray-300 rounded-lg text-gray-800 text-xs outline-none">
+                    </div>
+                </div>
+                
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+                    <div>
+                        <label class="block font-bold text-gray-700 uppercase mb-1 truncate">Prioridad:</label>
+                        <select id="edit-prioridad" class="input-vino-focus w-full px-2 py-2 border border-gray-300 rounded-lg text-gray-800 text-xs outline-none bg-white">
+                            <option value="baja">Baja</option>
+                            <option value="media">Media</option>
+                            <option value="alta">Alta</option>
+                            <option value="urgente">Urgente</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block font-bold text-gray-700 uppercase mb-1 truncate">Estado / Columna:</label>
+                        <select id="edit-estado" class="input-vino-focus w-full px-2 py-2 border border-gray-300 rounded-lg text-gray-800 text-xs outline-none bg-white">
+                            <option value="backlog">Backlog</option>
+                            <option value="pendiente">Hoy / Pendiente</option>
+                            <option value="en_progreso">En Progreso</option>
+                            <option value="completado">Completado</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block font-bold text-gray-700 uppercase mb-1 truncate">Fecha Inicio:</label>
+                        <input type="date" id="edit-fecha" class="input-vino-focus w-full px-2 py-2 border border-gray-300 rounded-lg text-gray-800 text-xs outline-none bg-white">
+                    </div>
+                    <div>
+                        <label class="block font-bold text-red-700 uppercase mb-1 truncate">Fecha Límite:</label>
+                        <input type="date" id="edit-fecha-limite" class="input-vino-focus w-full px-2 py-2 border border-gray-300 rounded-lg text-gray-800 text-xs outline-none bg-white">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block font-bold text-gray-700 uppercase mb-1">Descripción / Notas:</label>
+                    <textarea id="edit-descripcion" rows="3" 
+                              class="input-vino-focus w-full px-3 py-2 border border-gray-300 rounded-lg text-gray-800 text-xs outline-none"></textarea>
+                </div>
+                <div class="flex justify-end space-x-2 pt-3 border-t border-gray-200">
+                    <button type="button" id="btn-cancelar-modal-editar" class="px-4 py-2 border border-gray-300 rounded-lg text-gray-600 hover:bg-gray-100 font-semibold transition">Cancelar</button>
+                    <button type="submit" class="btn-vino px-5 py-2 rounded-lg font-bold flex items-center space-x-1.5">
+                        <i class="fa-solid fa-arrows-rotate text-xs"></i>
+                        <span>Actualizar Tarea</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Scripts desacoplados -->
+    <script src="/public/js/sweetalert2.all.min.js"></script>
+    <script src="/public/js/tablero.js"></script>
+</body>
+</html>

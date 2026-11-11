@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Agenda & Asistente | Almanaque & Cronograma</title>
+    <link rel="stylesheet" href="/public/css/tailwind.min.css">
+    <link rel="stylesheet" href="/public/css/all.min.css">
+    <link rel="stylesheet" href="/public/css/tablero.css">
+</head>
+<body class="bg-gray-100 font-sans antialiased text-gray-800">
+
+    <div id="sidebar-backdrop" class="sidebar-backdrop"></div>
+
+    <div class="flex h-screen overflow-hidden">
+        <div id="sidebar-container"></div>
+
+        <div class="flex-1 flex flex-col overflow-y-auto">
+            
+            <header class="bg-white shadow-sm h-16 flex items-center justify-between px-4 sm:px-8 border-b border-gray-200">
+                <div class="flex items-center space-x-3">
+                    <button id="btn-abrir-sidebar-movil" class="md:hidden p-2 rounded-lg text-gray-700 hover:bg-gray-100">
+                        <i class="fa-solid fa-bars text-lg"></i>
+                    </button>
+                    <span class="p-2 rounded-lg bg-red-50 text-red-700"><i class="fa-solid fa-calendar-days text-lg"></i></span>
+                    <h1 class="text-sm sm:text-base font-bold text-gray-800">Almanaque & Planificador Diario</h1>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <button id="btn-ir-hoy" class="btn-vino px-3 py-1.5 rounded-lg text-xs font-bold transition">
+                        Hoy
+                    </button>
+                </div>
+            </header>
+
+            <main class="p-4 sm:p-6 max-w-7xl mx-auto w-full flex-1">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+                    
+                    <!-- COLUMNA IZQUIERDA: ALMANAQUE MENSUAL INTERACTIVO -->
+                    <div class="lg:col-span-5 bg-white rounded-2xl shadow-sm border border-gray-200 p-4 sm:p-5">
+                        <div class="flex items-center justify-between mb-4 pb-2 border-b border-gray-100">
+                            <h2 id="titulo-mes-almanaque" class="text-sm font-extrabold text-gray-800 capitalize tracking-wide">
+                                Cargando mes...
+                            </h2>
+                            <div class="flex items-center space-x-1">
+                                <button id="btn-mes-anterior" class="w-8 h-8 rounded-lg border border-gray-200 hover:bg-gray-50 flex items-center justify-center text-xs text-gray-600 transition">
+                                    <i class="fa-solid fa-chevron-left"></i>
+                                </button>
+                                <button id="btn-mes-siguiente" class="w-8 h-8 rounded-lg border border-gray-200 hover:bg-gray-50 flex items-center justify-center text-xs text-gray-600 transition">
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Encabezados Días de la semana -->
+                        <div class="grid grid-cols-7 text-center font-bold text-[11px] text-gray-400 font-mono mb-2">
+                            <span>LU</span><span>MA</span><span>MI</span><span>JU</span><span>VI</span><span>SA</span><span>DO</span>
+                        </div>
+
+                        <!-- Grilla dinámica de días -->
+                        <div id="grilla-almanaque" class="grid grid-cols-7 gap-1.5 text-center"></div>
+
+                        <!-- Leyenda rápida de tipos de bloques -->
+                        <div class="mt-5 pt-3 border-t border-gray-100 flex flex-wrap items-center justify-around text-[10px] text-gray-500 font-medium">
+                            <span class="flex items-center"><span class="w-2 h-2 rounded-full bg-purple-500 mr-1.5"></span> Personal</span>
+                            <span class="flex items-center"><span class="w-2 h-2 rounded-full bg-blue-500 mr-1.5"></span> Desarrollo</span>
+                            <span class="flex items-center"><span class="w-2 h-2 rounded-full bg-red-600 mr-1.5"></span> Guardia</span>
+                            <span class="flex items-center"><span class="w-2 h-2 rounded-full bg-amber-500 mr-1.5"></span> Reunión</span>
+                        </div>
+                    </div>
+
+                    <!-- COLUMNA DERECHA: CRONOGRAMA POR HORAS DEL DÍA SELECCIONADO -->
+                    <div class="lg:col-span-7 bg-white rounded-2xl shadow-sm border border-gray-200 p-4 sm:p-6">
+                        <div class="flex items-center justify-between border-b border-gray-200 pb-3 mb-4">
+                            <div>
+                                <h3 id="label-dia-seleccionado" class="text-sm font-bold text-gray-800">Horario de actividades</h3>
+                                <p class="text-xs text-gray-400">Haz clic en reservar para bloquear un horario en este día</p>
+                            </div>
+                        </div>
+
+                        <!-- Contenedor dinámico de franjas de 08:00 a 22:00 -->
+                        <div id="contenedor-time-slots" class="space-y-2 max-h-[calc(100vh-250px)] overflow-y-auto pr-1"></div>
+                    </div>
+
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- MODAL AGREGAR / EDITAR BLOQUE HORARIO -->
+    <div id="modal-bloque" class="modal-overlay hidden">
+        <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full overflow-hidden border border-red-950/20">
+            <div class="modal-header-vino p-4 flex justify-between items-center text-white">
+                <h3 class="text-sm font-black flex items-center">
+                    <i class="fa-solid fa-stopwatch mr-2 text-red-200"></i> Programar Actividad
+                </h3>
+                <button type="button" id="btn-cerrar-modal-bloque" class="text-red-200 hover:text-white p-1">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+            <form id="form-bloque" class="p-5 space-y-4 text-xs">
+                <div>
+                    <label class="block font-bold text-gray-700 uppercase mb-1">Fecha:</label>
+                    <input type="date" id="b-fecha" required class="input-vino-focus w-full px-3 py-2 border border-gray-300 rounded-lg text-xs outline-none bg-gray-50 font-mono font-bold" readonly>
+                </div>
+                <div>
+                    <label class="block font-bold text-gray-700 uppercase mb-1">Actividad / Tarea:</label>
+                    <input type="text" id="b-actividad" required placeholder="Ej: Redactar CV de español a inglés" 
+                           class="input-vino-focus w-full px-3 py-2 border border-gray-300 rounded-lg text-xs outline-none">
+                </div>
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block font-bold text-gray-700 uppercase mb-1">Hora Inicio:</label>
+                        <input type="time" id="b-inicio" required class="input-vino-focus w-full px-3 py-2 border border-gray-300 rounded-lg text-xs outline-none">
+                    </div>
+                    <div>
+                        <label class="block font-bold text-gray-700 uppercase mb-1">Hora Fin:</label>
+                        <input type="time" id="b-fin" required class="input-vino-focus w-full px-3 py-2 border border-gray-300 rounded-lg text-xs outline-none">
+                    </div>
+                </div>
+                <div>
+                    <label class="block font-bold text-gray-700 uppercase mb-1">Tipo de Actividad:</label>
+                    <select id="b-tipo" class="input-vino-focus w-full px-3 py-2 border border-gray-300 rounded-lg text-xs outline-none bg-white">
+                        <option value="Personal">🎮 Personal / Relax</option>
+                        <option value="Desarrollo">💻 Desarrollo / Programación</option>
+                        <option value="Guardia">🏥 Guardia / Hospital</option>
+                        <option value="Reunión">👥 Reunión / Coordinación</option>
+                    </select>
+                </div>
+                <div class="flex justify-end space-x-2 pt-2 border-t border-gray-200">
+                    <button type="button" id="btn-cancelar-bloque" class="px-4 py-2 border border-gray-300 rounded-lg text-gray-600 hover:bg-gray-100 font-semibold transition">Cancelar</button>
+                    <button type="submit" class="btn-vino px-5 py-2 rounded-lg font-bold">Guardar Horario</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="/public/js/sweetalert2.all.min.js"></script>
+    <script src="/public/js/cronograma.js"></script>
+</body>
+</html>

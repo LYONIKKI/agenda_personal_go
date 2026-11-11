@@ -1,0 +1,32 @@
+# Archivos de entorno y credenciales
+.env
+*.env
+.env.*
+readme
+# Binarios compilados de Go
+agenda_api
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Binarios y carpetas de build
+bin/
+dist/
+
+# Dependencias cacheadas (si se usa vendor)
+vendor/
+
+# Archivos temporales de Linux y editores
+*.tmp
+*.log
+.DS_Store
+.vscode/
+.idea/
+
+# Backups y archivos de empaquetado
+*.tar.gz
+*.zip
+*.ar
+*.a
