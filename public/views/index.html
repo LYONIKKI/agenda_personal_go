@@ -108,7 +108,7 @@
     </div>
 
     <!-- ========================================== -->
-    <!-- MODAL 1: REGISTRAR TAREA NUEVA (EXCLUSIVO) -->
+    <!-- MODAL 1: REGISTRAR TAREA NUEVA             -->
     <!-- ========================================== -->
     <div id="modal-crear-tarea" class="modal-overlay hidden">
         <div class="bg-white rounded-2xl shadow-2xl max-w-lg w-full overflow-hidden border border-red-950/20">
@@ -141,11 +141,10 @@
                                class="input-vino-focus w-full px-3 py-2 border border-gray-300 rounded-lg text-gray-800 text-xs outline-none">
                     </div>
                 </div>
-                
-                <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+                <div class="grid grid-cols-2 gap-3">
                     <div>
-                        <label class="block font-bold text-gray-700 uppercase mb-1 truncate">Prioridad:</label>
-                        <select id="crear-prioridad" class="input-vino-focus w-full px-2 py-2 border border-gray-300 rounded-lg text-gray-800 text-xs outline-none bg-white">
+                        <label class="block font-bold text-gray-700 uppercase mb-1">Prioridad:</label>
+                        <select id="crear-prioridad" class="input-vino-focus w-full px-2.5 py-2 border border-gray-300 rounded-lg text-gray-800 text-xs outline-none bg-white">
                             <option value="baja">Baja</option>
                             <option value="media" selected>Media</option>
                             <option value="alta">Alta</option>
@@ -153,23 +152,24 @@
                         </select>
                     </div>
                     <div>
-                        <label class="block font-bold text-gray-700 uppercase mb-1 truncate">Estado Inicial:</label>
-                        <select id="crear-estado" class="input-vino-focus w-full px-2 py-2 border border-gray-300 rounded-lg text-gray-800 text-xs outline-none bg-white">
+                        <label class="block font-bold text-gray-700 uppercase mb-1">Estado Inicial:</label>
+                        <select id="crear-estado" class="input-vino-focus w-full px-2.5 py-2 border border-gray-300 rounded-lg text-gray-800 text-xs outline-none bg-white">
                             <option value="backlog">Backlog</option>
                             <option value="pendiente" selected>Hoy / Pendiente</option>
                             <option value="en_progreso">En Progreso</option>
                         </select>
                     </div>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <div>
-                        <label class="block font-bold text-gray-700 uppercase mb-1 truncate">Fecha Inicio:</label>
-                        <input type="date" id="crear-fecha" class="input-vino-focus w-full px-2 py-2 border border-gray-300 rounded-lg text-gray-800 text-xs outline-none bg-white">
+                        <label class="block font-bold text-gray-700 uppercase mb-1">Fecha y Hora Inicio:</label>
+                        <input type="datetime-local" id="crear-fecha" required class="input-vino-focus w-full px-2.5 py-2 border border-gray-300 rounded-lg text-gray-800 text-xs outline-none bg-white font-mono">
                     </div>
                     <div>
-                        <label class="block font-bold text-red-700 uppercase mb-1 truncate">Fecha Límite:</label>
-                        <input type="date" id="crear-fecha-limite" class="input-vino-focus w-full px-2 py-2 border border-gray-300 rounded-lg text-gray-800 text-xs outline-none bg-white">
+                        <label class="block font-bold text-red-700 uppercase mb-1">Fecha y Hora Límite:</label>
+                        <input type="datetime-local" id="crear-fecha-limite" class="input-vino-focus w-full px-2.5 py-2 border border-gray-300 rounded-lg text-gray-800 text-xs outline-none bg-white font-mono">
                     </div>
                 </div>
-
                 <div>
                     <label class="block font-bold text-gray-700 uppercase mb-1">Descripción / Notas:</label>
                     <textarea id="crear-descripcion" rows="3" placeholder="Detalles de la tarea..."
@@ -187,7 +187,7 @@
     </div>
 
     <!-- ========================================== -->
-    <!-- MODAL 2: EDITAR / APLAZAR TAREA (EXCLUSIVO) -->
+    <!-- MODAL 2: EDITAR / APLAZAR TAREA            -->
     <!-- ========================================== -->
     <div id="modal-editar-tarea" class="modal-overlay hidden">
         <div class="bg-white rounded-2xl shadow-2xl max-w-lg w-full overflow-hidden border border-red-950/20">
@@ -221,11 +221,10 @@
                                class="input-vino-focus w-full px-3 py-2 border border-gray-300 rounded-lg text-gray-800 text-xs outline-none">
                     </div>
                 </div>
-                
-                <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+                <div class="grid grid-cols-2 gap-3">
                     <div>
-                        <label class="block font-bold text-gray-700 uppercase mb-1 truncate">Prioridad:</label>
-                        <select id="edit-prioridad" class="input-vino-focus w-full px-2 py-2 border border-gray-300 rounded-lg text-gray-800 text-xs outline-none bg-white">
+                        <label class="block font-bold text-gray-700 uppercase mb-1">Prioridad:</label>
+                        <select id="edit-prioridad" class="input-vino-focus w-full px-2.5 py-2 border border-gray-300 rounded-lg text-gray-800 text-xs outline-none bg-white">
                             <option value="baja">Baja</option>
                             <option value="media">Media</option>
                             <option value="alta">Alta</option>
@@ -233,24 +232,25 @@
                         </select>
                     </div>
                     <div>
-                        <label class="block font-bold text-gray-700 uppercase mb-1 truncate">Estado / Columna:</label>
-                        <select id="edit-estado" class="input-vino-focus w-full px-2 py-2 border border-gray-300 rounded-lg text-gray-800 text-xs outline-none bg-white">
+                        <label class="block font-bold text-gray-700 uppercase mb-1">Estado / Columna:</label>
+                        <select id="edit-estado" class="input-vino-focus w-full px-2.5 py-2 border border-gray-300 rounded-lg text-gray-800 text-xs outline-none bg-white">
                             <option value="backlog">Backlog</option>
                             <option value="pendiente">Hoy / Pendiente</option>
                             <option value="en_progreso">En Progreso</option>
                             <option value="completado">Completado</option>
                         </select>
                     </div>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <div>
-                        <label class="block font-bold text-gray-700 uppercase mb-1 truncate">Fecha Inicio:</label>
-                        <input type="date" id="edit-fecha" class="input-vino-focus w-full px-2 py-2 border border-gray-300 rounded-lg text-gray-800 text-xs outline-none bg-white">
+                        <label class="block font-bold text-gray-700 uppercase mb-1">Fecha y Hora Inicio:</label>
+                        <input type="datetime-local" id="edit-fecha" required class="input-vino-focus w-full px-2.5 py-2 border border-gray-300 rounded-lg text-gray-800 text-xs outline-none bg-white font-mono">
                     </div>
                     <div>
-                        <label class="block font-bold text-red-700 uppercase mb-1 truncate">Fecha Límite:</label>
-                        <input type="date" id="edit-fecha-limite" class="input-vino-focus w-full px-2 py-2 border border-gray-300 rounded-lg text-gray-800 text-xs outline-none bg-white">
+                        <label class="block font-bold text-red-700 uppercase mb-1">Fecha y Hora Límite:</label>
+                        <input type="datetime-local" id="edit-fecha-limite" class="input-vino-focus w-full px-2.5 py-2 border border-gray-300 rounded-lg text-gray-800 text-xs outline-none bg-white font-mono">
                     </div>
                 </div>
-
                 <div>
                     <label class="block font-bold text-gray-700 uppercase mb-1">Descripción / Notas:</label>
                     <textarea id="edit-descripcion" rows="3" 
@@ -264,6 +264,60 @@
                     </button>
                 </div>
             </form>
+        </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- MODAL 3: BITÁCORA DE AVANCES TÉCNICOS      -->
+    <!-- ========================================== -->
+    <div id="modal-bitacora" class="modal-overlay hidden">
+        <div class="bg-white rounded-2xl shadow-2xl max-w-xl w-full overflow-hidden border border-red-950/20">
+            <div class="modal-header-vino p-4 flex justify-between items-center text-white">
+                <div>
+                    <h3 class="text-sm font-black flex items-center">
+                        <i class="fa-solid fa-clock-rotate-left mr-2 text-red-200"></i>
+                        <span id="bitacora-titulo-tarea">Bitácora Técnica</span>
+                    </h3>
+                    <p id="bitacora-tiempo-total" class="text-[10px] text-red-200 font-mono mt-0.5">Tiempo acumulado: 0h 0m</p>
+                </div>
+                <button type="button" id="btn-cerrar-bitacora" class="text-red-200 hover:text-white p-1">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+            <div class="p-5 space-y-4 text-xs max-h-[80vh] overflow-y-auto">
+                <form id="form-bitacora" class="bg-gray-50 p-3.5 rounded-xl border border-gray-200 space-y-3">
+                    <input type="hidden" id="bitacora-tarea-id">
+                    <div class="grid grid-cols-3 gap-2">
+                        <div>
+                            <label class="block font-bold text-gray-700 uppercase mb-1">Fecha:</label>
+                            <input type="date" id="av-fecha" required class="input-vino-focus w-full px-2 py-1.5 border border-gray-300 rounded-lg text-xs bg-white font-mono">
+                        </div>
+                        <div>
+                            <label class="block font-bold text-gray-700 uppercase mb-1">Hora Inicio:</label>
+                            <input type="time" id="av-inicio" required class="input-vino-focus w-full px-2 py-1.5 border border-gray-300 rounded-lg text-xs bg-white font-mono">
+                        </div>
+                        <div>
+                            <label class="block font-bold text-gray-700 uppercase mb-1">Hora Fin:</label>
+                            <input type="time" id="av-fin" required class="input-vino-focus w-full px-2 py-1.5 border border-gray-300 rounded-lg text-xs bg-white font-mono">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block font-bold text-gray-700 uppercase mb-1">Detalle técnico realizado:</label>
+                        <textarea id="av-nota" rows="2" required placeholder="Ej: Se agregó ícono key en sidebar de layout y formulario modal de cambio de contraseña..." class="input-vino-focus w-full px-3 py-2 border border-gray-300 rounded-lg text-xs bg-white"></textarea>
+                    </div>
+                    <div class="flex justify-end">
+                        <button type="submit" class="btn-vino px-4 py-1.5 rounded-lg font-bold text-xs flex items-center space-x-1">
+                            <i class="fa-solid fa-plus"></i>
+                            <span>Registrar Avance</span>
+                        </button>
+                    </div>
+                </form>
+
+                <div>
+                    <h4 class="font-bold text-gray-700 uppercase text-[11px] mb-2">Historial de Sesiones Registradas:</h4>
+                    <div id="lista-avances-tarea" class="space-y-2"></div>
+                </div>
+            </div>
         </div>
     </div>
 

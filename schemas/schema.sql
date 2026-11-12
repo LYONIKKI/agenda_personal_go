@@ -52,3 +52,14 @@ CREATE TABLE IF NOT EXISTS agenda_cronograma (
     completado BOOLEAN DEFAULT FALSE,
     creado_en TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
+-- 1. Convertir fecha_programada y fecha_limite a TIMESTAMP para guardar hora y minuto
+ALTER TABLE agenda_tareas 
+    ALTER COLUMN fecha_programada TYPE TIMESTAMP USING fecha_programada::timestamp,
+    ALTER COLUMN fecha_limite TYPE TIMESTAMP USING fecha_limite::timestamp;
+
+-- 2. Ampliar la tabla existente agenda_tarea_avances para registrar tramos horarios y minutos
+ALTER TABLE agenda_tarea_avances
+    ADD COLUMN IF NOT EXISTS hora_inicio TIME DEFAULT '08:00',
+    ADD COLUMN IF NOT EXISTS hora_fin TIME DEFAULT '09:00',
+    ADD COLUMN IF NOT EXISTS minutos_invertidos INT DEFAULT 60;

@@ -43,6 +43,9 @@ func main() {
 	tareaCtrl := &controllers.TareaController{
 		DB: dbState.DB,
 	}
+	avanceCtrl := &controllers.AvanceController{
+		DB: dbState.DB,
+	}
 	cronogramaCtrl := &controllers.CronogramaController{
 		DB: dbState.DB,
 	}
@@ -83,15 +86,18 @@ func main() {
 	privado.Put("/api/tareas/:id/aplazar", tareaCtrl.Aplazar)
 	privado.Delete("/api/tareas/:id", tareaCtrl.Eliminar)
 
-	// Endpoints Cronograma Diaria
+	// Endpoints Bitácora de Avances
+	privado.Get("/api/tareas/:id/avances", avanceCtrl.ListarPorTarea)
+	privado.Post("/api/tareas/:id/avances", avanceCtrl.Crear)
+	privado.Delete("/api/avances/:avanceId", avanceCtrl.Eliminar)
+
+	// Endpoints Cronograma Diario y Almanaque
 	privado.Get("/api/cronograma", cronogramaCtrl.ListarPorFecha)
-	privado.Post("/api/cronograma", cronogramaCtrl.Crear)
-	privado.Delete("/api/cronograma/:id", cronogramaCtrl.Eliminar)
-	privado.Get("/api/cronograma", cronogramaCtrl.ListarPorFecha)
-	privado.Get("/api/cronograma/mes", cronogramaCtrl.DiasOcupadosMes) // <--- NUEVO
+	privado.Get("/api/cronograma/mes", cronogramaCtrl.DiasOcupadosMes)
 	privado.Post("/api/cronograma", cronogramaCtrl.Crear)
 	privado.Delete("/api/cronograma/:id", cronogramaCtrl.Eliminar)
 
+	// Endpoint Seguimiento Semanal
 	privado.Get("/api/semanal", semanalCtrl.ObtenerSeguimiento)
 
 	port := os.Getenv("PORT")
